@@ -1,0 +1,233 @@
+const express = require('express');
+const mysql = require('mysql');
+const Web3 = require('web3');
+
+var app = express();
+
+app.use(express.static('.'))
+
+var connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: 'gaga0224',
+    database: 'log'
+});
+
+connection.connect(function(err) {
+    if (err)
+        throw err;
+    else
+        console.log("connect mysql;");
+});
+
+var level_num = ['0xDF51a9e8CE57E7787E4A27DD19880Fd7106b9A5C', '0x234094AAC85628444a82DaE0396C680974260bE7', '0x220BEEE334f1C1f8078352D88Bcc4E6165b792F6', '0xD340de695BbC39E72DF800DFde78a20d2ed94035', '0x6b7b4A5260B67c1ee9196a42dD1ed8633231bA0a', '0x6545DF87f57d21CB096a0BFCc53a70464D062512', '0x68756Ad5E1039E4f3b895cfaa16a3a79A5a73C59', '0x24d661BeB31b85a7d775272d7841f80e662c283b', '0xE77b0BEa3F019b1Df2c9663c823a2Ae65AfB6a5f', '0x32D25A51C4690960F1D18fADFa98111F71de5fA7', '0xF70706DB003E94cfe4B5e27ffd891d5C81b39488']
+    // const INFURA_API_KEY = 'b0a536a15d9c450caa7d98e89fb9fede';
+const address = "0xC833A73D33071725143d7Cf7dFD4f4bBa6B5cED2";
+const ABI = [{
+        "constant": true,
+        "inputs": [],
+        "name": "owner",
+        "outputs": [{
+            "name": "",
+            "type": "address"
+        }],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [{
+            "name": "newOwner",
+            "type": "address"
+        }],
+        "name": "transferOwnership",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "anonymous": false,
+        "inputs": [{
+                "indexed": true,
+                "name": "player",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "name": "instance",
+                "type": "address"
+            }
+        ],
+        "name": "LevelInstanceCreatedLog",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [{
+                "indexed": true,
+                "name": "player",
+                "type": "address"
+            },
+            {
+                "indexed": false,
+                "name": "level",
+                "type": "address"
+            }
+        ],
+        "name": "LevelCompletedLog",
+        "type": "event"
+    },
+    {
+        "anonymous": false,
+        "inputs": [{
+                "indexed": true,
+                "name": "previousOwner",
+                "type": "address"
+            },
+            {
+                "indexed": true,
+                "name": "newOwner",
+                "type": "address"
+            }
+        ],
+        "name": "OwnershipTransferred",
+        "type": "event"
+    },
+    {
+        "constant": false,
+        "inputs": [{
+            "name": "_level",
+            "type": "address"
+        }],
+        "name": "registerLevel",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [{
+            "name": "_level",
+            "type": "address"
+        }],
+        "name": "createLevelInstance",
+        "outputs": [],
+        "payable": true,
+        "stateMutability": "payable",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [{
+            "name": "_instance",
+            "type": "address"
+        }],
+        "name": "submitLevelInstance",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    }
+];
+
+app.listen(3000, function() {});
+
+app.get('/', function(req, res) {
+    res.send("Successfull!");
+});
+
+app.get("/get_info", function(req, res) {
+    var sql = "select * from user_info order by user_level_total desc";
+    connection.query(sql, function(err, result) {
+        if (err)
+            throw err;
+        else {
+            res.send(result);
+        }
+    })
+})
+
+// let web3_1 = new Web3(`https://ropsten.infura.io/v3/${INFURA_API_KEY}`);
+let web3 = new Web3('wss://ropsten.infura.io/ws');
+
+var contract = new web3.eth.Contract(ABI, address);
+
+contract.events.LevelCompletedLog({ fromBlock: 0 }, function(error, event) {
+    if (error)
+        throw error;
+    else {
+        console.log(event);
+        var level_int = level_num.indexOf(event.returnValues.level);
+        var date = new Date();
+        var time = date.getTime();
+        console.log("Player address : " + event.returnValues.player + " Level address : " + event.returnValues.level);
+        console.log("level index : " + level_int + " time : " + time);
+        oh_ya(event.returnValues.player, date, time);
+    }
+});
+
+async function oh_ya(player, date, time) {
+    if (await check_address(player)) {
+        await update(player, date, time);
+    } else {
+        await insert(player, date, time);
+    }
+}
+
+function check_address(player) {
+    var sql = `select * from user_info where user_add = '${player}';`;
+    return new Promise((resolve, reject) => {
+        connection.query(sql, function(err, result) {
+            if (err)
+                reject(err);
+            else {
+                if (result[0] !== undefined)
+                    resolve(true);
+                else
+                    resolve(false);
+            }
+        })
+    });
+}
+
+function insert(player, date, time) {
+    var sql = `insert into user_info(user_add,user_level_total,date,time) values ('${player}','1','${date}','${time}')`;
+    return new Promise((resolve, reject) => {
+        connection.query(sql, function(err, result) {
+            if (err)
+                reject(err);
+            else
+                resolve(result);
+        })
+    });
+}
+
+async function update(player, date, time) {
+    var num = Number(1) + await find_level(player);
+    var sql = `update user_info set user_level_total = ${num}, date = '${date}' , time = '${time}' where user_add = '${player}'`;
+    return new Promise((resolve, reject) => {
+        connection.query(sql, function(err, result) {
+            if (err)
+                reject(err);
+            else
+                resolve(result);
+        })
+    });
+}
+
+async function find_level(player) {
+    var sql = `select user_level_total from user_info where user_add ='${player}';`;
+    return new Promise((resolve, reject) => {
+        connection.query(sql, function(err, result) {
+            if (err)
+                reject(err);
+            else
+                resolve(result[0].user_level_total);
+        })
+    });
+}
+
+// update('0xDF51a9e8CE57E7787E4A27DD19880Fd7106b9A5C');
