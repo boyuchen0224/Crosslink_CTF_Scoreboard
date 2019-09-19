@@ -10,11 +10,11 @@ function get_info() {
 }
 
 function rank_sort(obj) {
-    for (var i = 1; i < obj.length; i++) {
-        if ((obj[i].user_level_total == obj[i - 1].user_level_total) && (obj[i].time < obj[i - 1].time)) {
-            [obj[i], obj[i - 1]] = [obj[i - 1], obj[i]];
-        }
-    }
+    obj.sort(function(a, b) {
+        if (a.user_level_total == b.user_level_total)
+            return a.time - b.time;
+        return b.user_level_total - a.user_level_total;
+    })
     rank_show(obj);
     console.log(obj);
 }
