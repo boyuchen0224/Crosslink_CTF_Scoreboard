@@ -47,3 +47,5 @@ function rank_show(obj) {
 
     }
 }
+
+get_info();
