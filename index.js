@@ -160,6 +160,7 @@ let web3 = new Web3('wss://ropsten.infura.io/ws');
 
 var contract = new web3.eth.Contract(ABI, address);
 
+//Get past all event from block: x
 async function get_table() {
     contract.getPastEvents('LevelCompletedLog', { fromBlock: 6400000 }, async function(error, event) {
         if (error)
@@ -181,7 +182,7 @@ async function get_table() {
     });
 }
 
-//Oh~~~~~~Ya~~~~~~
+//Input data to table
 async function go_to_table(player_add, level_int, block_num, block_index) {
     if (await check_address(player_add)) {
         console.log("*************** update ***************")
