@@ -166,7 +166,7 @@ async function get_table() {
         if (error)
             throw error;
         else {
-            console.log(event);
+            // console.log(event);
             for (var i = 0; i < event.length; i++) {
                 var player_add = event[i].returnValues.player;
                 var level_int = level_num.indexOf(event[i].returnValues.level);
