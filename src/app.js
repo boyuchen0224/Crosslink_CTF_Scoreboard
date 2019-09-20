@@ -12,7 +12,7 @@ function get_info() {
 function rank_sort(obj) {
     obj.sort(function(a, b) {
         if (a.user_level_total == b.user_level_total)
-            return a.time - b.time;
+            return b.block_num - a.block_num;
         return b.user_level_total - a.user_level_total;
     })
     rank_show(obj);
@@ -35,7 +35,7 @@ function rank_show(obj) {
         td_lv.appendChild(td_lv_text);
 
         var td_date = document.createElement('td');
-        var td_date_text = document.createTextNode(obj[i].date);
+        var td_date_text = document.createTextNode(obj[i].block_num);
         td_date.appendChild(td_date_text);
 
         var tr = document.createElement('tr');
@@ -47,3 +47,5 @@ function rank_show(obj) {
 
     }
 }
+
+get_info();
