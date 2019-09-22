@@ -12,7 +12,7 @@ function get_info() {
 function rank_sort(obj) {
     obj.sort(function(a, b) {
         if (a.user_level_total == b.user_level_total)
-            return b.block_num - a.block_num;
+            return a.block_num - b.block_num;
         return b.user_level_total - a.user_level_total;
     })
     rank_show(obj);
