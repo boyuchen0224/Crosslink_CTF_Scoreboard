@@ -1,17 +1,19 @@
+require('dotenv').config();
 const _ = require('lodash');
 const express = require('express');
 const mysql = require('mysql');
 const Web3 = require('web3');
 
+const { DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE } = process.env;
 var app = express();
 
 app.use(express.static('.'))
 
 var connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'root',
-    password: 'gaga0224',
-    database: 'log'
+    host: DB_HOST,
+    user: DB_USER,
+    password: DB_PASSWORD,
+    database: DB_DATABASE 
 });
 
 connection.connect(function(err) {
@@ -21,8 +23,6 @@ connection.connect(function(err) {
         console.log("connect mysql~~~~~~~ :)");
 });
 
-// var level_num = ['0xDF51a9e8CE57E7787E4A27DD19880Fd7106b9A5C', '0x234094AAC85628444a82DaE0396C680974260bE7', '0x220BEEE334f1C1f8078352D88Bcc4E6165b792F6', '0xD340de695BbC39E72DF800DFde78a20d2ed94035', '0x6b7b4A5260B67c1ee9196a42dD1ed8633231bA0a', '0x6545DF87f57d21CB096a0BFCc53a70464D062512', '0x68756Ad5E1039E4f3b895cfaa16a3a79A5a73C59', '0x24d661BeB31b85a7d775272d7841f80e662c283b', '0xE77b0BEa3F019b1Df2c9663c823a2Ae65AfB6a5f', '0x32D25A51C4690960F1D18fADFa98111F71de5fA7', '0xF70706DB003E94cfe4B5e27ffd891d5C81b39488', '0xCD596b3E7063B068f54054Beb4FB4074C87E8AD8', '0x76b9FADe124191ff5642bA1731a8279b30EbE644', '0x95850e2aC424804043086321DDAE90aDd5c90651', '0x65d2dd3360086Cf306E700A0703Ee38650D28413', '0xddf4eab541bf1373B70022C4cd81fe2a4ccf476A', '0xE3545eBAa3A0381ebd9f0868ae61b5dc89962ef5', '0xe83Cf387Ddfd13A2Db5493D014ba5B328589Fb5f', '0xDE038A41CAD4236c2B32A5ff1002C61a0cc424a0', '0x7640ADB7aA5F07ea42483Ad3F30b0280d4E595f0', '0x73048cec9010E92C298B016966BDE1CC47299DF5', '0x601C7951500f83ed1Da63Ab031b435d4E551683a']
-// const address = "0xC833A73D33071725143d7Cf7dFD4f4bBa6B5cED2";
 var level_num = ["0x8b1b00Be6B60739F8602f6CDdA67a79f746555c0", "0xE04D0f4fDe42df86941d2B1c54Bd22185F4219B0"]
 const address = "0x794f3861768519a809d31cb305e00be568fb29bf"
 const ABI = [{
@@ -251,7 +251,7 @@ async function update(player_add, level_int, block_num, block_index) {
         });
     } else {
         console.log("level_arr : " + level_arr + " level_int : " + level_int);
-        console.log("*************** Repeted Data !!!!!!!!!!! ***************")
+        console.log("*************** Repeated Data !!!!!!!!!!! ***************")
     }
 }
 
