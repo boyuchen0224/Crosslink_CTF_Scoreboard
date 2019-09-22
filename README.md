@@ -6,5 +6,11 @@
 1. `npm install` 安裝套件
 2. `node index.js` (port 3000)
 
+環境：
+1. node 11.0.0
+2. mysql 5.5.62
+3. import score_board.sql(`mysql -u username -p dbname < score_board.sql`
+)`
+
 
 **尚未整理分層架構**
