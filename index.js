@@ -136,7 +136,8 @@ const ABI = [{
 
 app.listen(3000, function() {
     console.log("Listen on port 3000 :)")
-    setInterval(get_table, 10000);
+        // setInterval(get_table, 10000);
+    get_table();
 });
 
 app.get('/', function(req, res) {
@@ -229,7 +230,7 @@ function insert(player_add, level_int, block_num, block_index) {
 async function update(player_add, level_int, block_num, block_index) {
     var level_each = await find_level(player_add);
     var level_arr = (level_each).split(',');
-    var repeat = find_repeat_level(level_arr, level_int);
+    var repeat = await find_repeat_level(level_arr, level_int);
 
     if (!repeat) {
         console.log("level_arr : " + level_arr + " level_int : " + level_int + " " + find_repeat_level(level_arr, level_int));
@@ -269,19 +270,11 @@ async function find_level(player_add) {
 
 //Check each completed level is repeated or not
 function find_repeat_level(level_arr, level_int) {
-    // This is wrong but I don't know why :)
-    // return new Promise((resolve, reject) => {
-    //     for(var i=0; i<level_arr.length; i++){
-    //         if(level_arr[i] == level_int)
-    //             resolve(ture);
-    //     }
-    //     resolve(false);
-    // })
-
-    // This is correct :)
-    for (var i = 0; i < level_arr.length; i++) {
-        if (level_arr[i] == level_int)
-            return (true);
-    }
-    return (false);
+    return new Promise((resolve, reject) => {
+        for (var i = 0; i < level_arr.length; i++) {
+            if (level_arr[i] == level_int)
+                resolve(true);
+        }
+        resolve(false);
+    })
 }
