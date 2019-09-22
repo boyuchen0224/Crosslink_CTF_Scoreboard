@@ -13,11 +13,10 @@
 ```DB_HOST=YOURHOST
 DB_USER=YOURUSER
 DB_PASSWORD=YOURPASSWORD
-DB_DATABASE=YOURDATABASE```
+DB_DATABASE=YOURDATABASE
+```
 
 5. `npm install` 安裝套件
 6. `node index.js` (port 3000)
     
-
-
 **尚未整理分層架構**
