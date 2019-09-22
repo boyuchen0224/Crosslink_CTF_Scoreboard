@@ -136,8 +136,8 @@ const ABI = [{
 
 app.listen(3000, function() {
     console.log("Listen on port 3000 :)")
-        // setInterval(get_table, 10000);
-    get_table();
+    setInterval(get_table, 10000);
+    // get_table();
 });
 
 app.get('/', function(req, res) {
