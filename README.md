@@ -8,10 +8,13 @@
 2. mysql 5.5.62
 3. import score_board.sql(`mysql -u username -p dbname < score_board.sql`
 )`
-4. create .env file 
+4. create **.env** file 
 `DB_HOST=YOURHOST
+
 DB_USER=YOURUSER
+
 DB_PASSWORD=YOURPASSWORD
+
 DB_DATABASE=YOURDATABASE`
 5. `npm install` 安裝套件
 6. `node index.js` (port 3000)
