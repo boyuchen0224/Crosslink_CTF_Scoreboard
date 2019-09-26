@@ -4,7 +4,7 @@ const express = require('express');
 const mysql = require('mysql');
 const Web3 = require('web3');
 
-const { DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE } = process.env;
+const { DB_HOST, DB_USER, DB_PASSWORD, DB_DATABASE, DB_TABLE } = process.env;
 var app = express();
 
 app.use(express.static('.'))
@@ -13,17 +13,19 @@ var connection = mysql.createConnection({
     host: DB_HOST,
     user: DB_USER,
     password: DB_PASSWORD,
-    database: DB_DATABASE 
+    database: DB_DATABASE,
 });
 
 connection.connect(function(err) {
     if (err)
         throw err;
-    else
+    else {
         console.log("connect mysql~~~~~~~ :)");
+        clean_database();
+    }
 });
 
-var level_num = ["0x8b1b00Be6B60739F8602f6CDdA67a79f746555c0", "0xE04D0f4fDe42df86941d2B1c54Bd22185F4219B0"]
+var level_num = ["0x8b1b00Be6B60739F8602f6CDdA67a79f746555c0", "0xE04D0f4fDe42df86941d2B1c54Bd22185F4219B0", "0x16Ab2bfe41acd8bc97a6e6b5570A93F701fd47b8"]
 const address = "0x794f3861768519a809d31cb305e00be568fb29bf"
 const ABI = [{
         "constant": true,
@@ -164,7 +166,7 @@ var contract = new web3.eth.Contract(ABI, address);
 
 //Get past all event from block: x
 async function get_table() {
-    contract.getPastEvents('LevelCompletedLog', { fromBlock: 6400000 }, async function(error, event) {
+    contract.getPastEvents('LevelCompletedLog', { fromBlock: 0 }, async function(error, event) {
         if (error)
             throw error;
         else {
@@ -174,6 +176,13 @@ async function get_table() {
                 var level_int = level_num.indexOf(event[i].returnValues.level);
                 var block_num = event[i].blockNumber;
                 var block_index = event[i].logIndex;
+
+                if (level_int == -1) {
+                    console.log("---------------------------------------------------------")
+                    console.log("The level is not in level_num please update level_num")
+                    console.log("Player address : " + player_add + " Level : " + level_int)
+                    continue;
+                }
 
                 console.log("---------------------------------------------------------")
                 console.log("Player address : " + player_add + " Level : " + level_int);
@@ -234,7 +243,7 @@ async function update(player_add, level_int, block_num, block_index) {
     var repeat = await find_repeat_level(level_arr, level_int);
 
     if (!repeat) {
-        console.log("level_arr : " + level_arr + " level_int : " + level_int + " " + find_repeat_level(level_arr, level_int));
+        console.log("level_arr : " + level_arr + " level_int : " + level_int);
         level_arr.push(level_int);
 
         var user_level_total = level_arr.length;
@@ -278,4 +287,19 @@ function find_repeat_level(level_arr, level_int) {
         }
         resolve(false);
     })
+}
+
+//clean databases when i update new level or restart server
+function clean_database() {
+    var sql = `truncate table ${DB_TABLE};`;
+    return new Promise((resolve, reject) => {
+        connection.query(sql, function(err, result) {
+            if (err)
+                reject(err);
+            else {
+                console.log(`Table ${DB_TABLE} has benn cleaned`)
+                resolve(result);
+            }
+        })
+    });
 }
