@@ -25,7 +25,7 @@ connection.connect(function(err) {
     }
 });
 
-var level_num = ["0x8b1b00Be6B60739F8602f6CDdA67a79f746555c0", "0xE04D0f4fDe42df86941d2B1c54Bd22185F4219B0", "0x16Ab2bfe41acd8bc97a6e6b5570A93F701fd47b8"]
+var level_num = ["0x8b1b00Be6B60739F8602f6CDdA67a79f746555c0", "0xE04D0f4fDe42df86941d2B1c54Bd22185F4219B0", "0x16Ab2bfe41acd8bc97a6e6b5570A93F701fd47b8", "0x3EDa5a1E2b0740FF9fBFeDE007D9C23Fb263FD24", "0xD05e07a0b45745cFff5eFb45bcA11F5ec8E14f4a"]
 const address = "0x794f3861768519a809d31cb305e00be568fb29bf"
 const ABI = [{
         "constant": true,
