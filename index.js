@@ -159,13 +159,14 @@ app.get("/get_info", function(req, res) {
     })
 })
 
-// let web3_1 = new Web3(`https://ropsten.infura.io/v3/${INFURA_API_KEY}`);
-let web3 = new Web3('wss://ropsten.infura.io/ws');
-
-var contract = new web3.eth.Contract(ABI, address);
-
 //Get past all event from block: x
 async function get_table() {
+
+    // let web3_1 = new Web3(`https://ropsten.infura.io/v3/${INFURA_API_KEY}`);
+    let web3 = new Web3('wss://ropsten.infura.io/ws');
+
+    var contract = new web3.eth.Contract(ABI, address);
+
     contract.getPastEvents('LevelCompletedLog', { fromBlock: 0 }, async function(error, event) {
         if (error)
             throw error;
