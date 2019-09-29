@@ -25,7 +25,7 @@ connection.connect(function(err) {
     }
 });
 
-var level_num = ["0x8b1b00Be6B60739F8602f6CDdA67a79f746555c0", "0xE04D0f4fDe42df86941d2B1c54Bd22185F4219B0", "0x16Ab2bfe41acd8bc97a6e6b5570A93F701fd47b8", "0x3EDa5a1E2b0740FF9fBFeDE007D9C23Fb263FD24", "0xD05e07a0b45745cFff5eFb45bcA11F5ec8E14f4a", "0xE84D57528D48a22EFFBBD48311d31c8B4dD48236"]
+var level_num = ["0x8b1b00Be6B60739F8602f6CDdA67a79f746555c0", "0xE04D0f4fDe42df86941d2B1c54Bd22185F4219B0", "0x16Ab2bfe41acd8bc97a6e6b5570A93F701fd47b8", "0x3EDa5a1E2b0740FF9fBFeDE007D9C23Fb263FD24", "0xD05e07a0b45745cFff5eFb45bcA11F5ec8E14f4a", "0xE84D57528D48a22EFFBBD48311d31c8B4dD48236", "0xAc3343c290E07FFD61b5E7C440541B6B274D9183", "0x5A5c66acCDE55765AE10a4BAD1F436b6f404AB1e"]
 const address = "0x794f3861768519a809d31cb305e00be568fb29bf"
 const ABI = [{
         "constant": true,
@@ -190,7 +190,6 @@ async function get_table() {
                 console.log("block_num : " + block_num + " block_index : " + block_index);
                 await go_to_table(player_add, level_int, block_num, block_index);
             }
-
         }
     });
 }
