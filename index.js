@@ -137,7 +137,7 @@ const ABI = [{
     }
 ];
 
-app.listen(3001, function() {
+app.listen(3000, function() {
     console.log("Listen on port 3000 :)")
     setInterval(get_table, 10000);
     // get_table();
@@ -167,7 +167,7 @@ async function get_table() {
 
     var contract = new web3.eth.Contract(ABI, address);
 
-    contract.getPastEvents('LevelCompletedLog', { fromBlock: 0 }, async function(error, event) {
+    contract.getPastEvents('LevelCompletedLog', { fromBlock: 6497800 }, async function(error, event) {
         if (error)
             throw error;
         else {
