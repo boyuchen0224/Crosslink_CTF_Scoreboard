@@ -167,7 +167,7 @@ async function get_table() {
 
     var contract = new web3.eth.Contract(ABI, address);
 
-    contract.getPastEvents('LevelCompletedLog', { fromBlock: 6497800 }, async function(error, event) {
+    contract.getPastEvents('LevelCompletedLog', { fromBlock: 6496200 }, async function(error, event) {
         if (error)
             throw error;
         else {
