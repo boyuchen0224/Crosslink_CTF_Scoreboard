@@ -1,0 +1,28 @@
+.move {
+    margin-right: 13em;
+    /* text-align: center; */
+    overflow-y: auto;
+    position: absolute;
+    cursor: move;
+    margin-left: 13em;
+    margin-top: 15vh;
+}
+
+.move.bg1 {
+    width: 660px;
+    height: 500px;
+    /* top: 40vmin;
+    right: 50vmin; */
+    position: fixed;
+}
+
+.toast {
+    max-width: 660px !important;
+    /* height: 50%; */
+    margin: 0 auto;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .2) !important;
+}
+
+.toast-header {
+    background-color: rgba(255, 200, 200, 0.72) !important;
+}

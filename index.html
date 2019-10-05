@@ -2,12 +2,13 @@
 <html>
 
 <head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="icon" type="image/png" sizes="192x192" href="./TEM_favicon.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="./img/TEM_favicon.png" />
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="index.css">
     <script src="./src/app.js"></script>
     <meta charset="UTF-8">
     <title>Scoreboard</title>
@@ -20,6 +21,28 @@
             <table class="table table-striped">
                 <thead class="thead-dark">
                     <a href="https://www.facebook.com/eth.taipei/" target="_blank"><i class="fa fa-facebook-square" style="font-size:48px;"></i>Contact With TEM FB</a>
+                    <div id="move" class='move bg1'>
+                        <div class="toast" data-autohide="false">
+                            <div class="toast-header" id="toasth">
+                                <strong class="mr-auto text-primary">獎項說明</strong>
+                                <small class="text-muted">2019/10/5 更新</small>
+                                <button onclick="closed()" type="button" class="ml-2 mb-1 close" data-dismiss="toast">&times;</button>
+                            </div>
+                            <div class="toast-body">
+                                <h6 style="color: burlywood">排名獎項：</h6>
+                                <p><b>第 1 名：</b>HTC EXODUS 乙支 + 研討會票券一張</p>
+                                <p><b>第 2 名：</b>CoolwalletS 乙個 + 研討會票券一張</p>
+                                <p><b>第 3 名：</b>Vitalik《理·想》簽名書乙本 + Crosslink 限量 T-shirt 乙件 + 研討會票券一張</p>
+                                <p><b>第 4 ~ 30 名：</b>將個別抽出 Crosslink 限量 T-shirt 三件 、Vitalik《理·想》簽名書兩本、研討會票券三張。</p>
+                                <h6 style="color: burlywood">參加獎項：</h6>
+                                <p><b>累計完成三關：</b>Crosslink 票價 9 折優惠</p>
+                                <p><b>累計完成七關：</b>Crosslink 票價 8 折優惠</p>
+                                <p style="color: rgb(77, 156, 230)">得獎者，請『主動』將合約地址私訊至 Taipei Ethereum Meetup 粉絲頁，小編會跟你確認後續取票事宜</p>
+                                <b style="color: crimson">(實體獎品將會於 10.19 活動當場發放)</b>
+
+                            </div>
+                        </div>
+                    </div>
                     <tr>
                         <th scope="col">Rank</th>
                         <th scope="col">Address</th>
