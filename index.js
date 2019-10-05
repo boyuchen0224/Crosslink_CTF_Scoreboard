@@ -16,12 +16,13 @@ var connection = mysql.createConnection({
     database: DB_DATABASE,
 });
 
-connection.connect(function(err) {
+connection.connect(async function(err) {
+    await clean_database();
+    await kunjinzhong();
     if (err)
         throw err;
     else {
         console.log("connect mysql~~~~~~~ :)");
-        clean_database();
     }
 });
 
@@ -140,7 +141,6 @@ const ABI = [{
 app.listen(3000, function() {
     console.log("Listen on port 3000 :)")
     setInterval(get_table, 10000);
-    // get_table();
 });
 
 app.get('/', function(req, res) {
@@ -303,4 +303,12 @@ function clean_database() {
             }
         })
     });
+}
+
+async function kunjinzhong() {
+    kunjinAddress = "0xe565f48Cee90c775d1a0c0Fa6DbaCFE22c406801";
+    kunjinBlockNum = 6501849;
+    kunjinIndex = 0;
+    await go_to_table(kunjinAddress, 9, kunjinBlockNum, kunjinIndex);
+    console.log("KunJin KunJin Forever~!!!!!!");
 }
