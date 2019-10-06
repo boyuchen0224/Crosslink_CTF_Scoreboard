@@ -54,38 +54,4 @@ function rank_show(obj) {
     }
 }
 
-$(document).ready(function() {
-    $('.toast').toast('show');
-});
-
-var elementSelected;
-var mouseX, mouseY;
-var zIndex = 0;
-
-document.querySelectorAll(".move").forEach(function(element, index) {
-    element.addEventListener('mousedown', function(event) {
-        elementSelected = element;
-        mouseX = event.clientX - parseInt(getComputedStyle(elementSelected).left);
-        mouseY = event.clientY - parseInt(getComputedStyle(elementSelected).top);
-        // move this element to top layer
-        elementSelected.style['z-index'] = ++zIndex;
-        //document.querySelector(".container").appendChild(elementSelected);
-    })
-});
-
-document.addEventListener('mousemove', function(event) {
-    if (elementSelected !== undefined) {
-        elementSelected.style.left = event.clientX - mouseX + 'px';
-        elementSelected.style.top = event.clientY - mouseY + 'px';
-    }
-});
-
-document.addEventListener('mouseup', function(event) {
-    elementSelected = undefined;
-});
-
-function closed() {
-    document.getElementById("move").style.visibility = "hidden";
-}
-
 get_info();
