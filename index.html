@@ -23,7 +23,7 @@
                     <a href="https://www.facebook.com/eth.taipei/" target="_blank"><i class="fa fa-facebook-square" style="font-size:48px;"></i>Contact With TEM FB</a>
                     <div class="like-table">
                         <div id="move" class='move bg1'>
-                            <div class="toast" data-autohide="false">
+                            <div id="toast" class="toast" data-autohide="false">
                                 <div class="toast-header" id="toasth">
                                     <strong class="mr-auto text-primary">獎項說明</strong>
                                     <small class="text-muted">2019/10/5 更新</small>
@@ -67,10 +67,6 @@
     </div>
     </div>
     <script>
-        $(document).ready(function() {
-            $('.toast').toast('show');
-        });
-
         var elementSelected;
         var mouseX, mouseY;
         var zIndex = 0;
@@ -96,10 +92,6 @@
         document.addEventListener('mouseup', function(event) {
             elementSelected = undefined;
         });
-
-        function closed() {
-            document.getElementById("move").style.visibility = "hidden";
-        }
     </script>
 </body>
 
