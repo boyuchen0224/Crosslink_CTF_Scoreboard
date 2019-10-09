@@ -1,8 +1,7 @@
 # Ethernaut_event_log
 [Score_board Link](https://score.crosslink.taipei/)
-[Crosslink Challenge](https://ctf.crosslink.taipei/)
 
-監聽使用者在 [Ethernaut](https://ethernaut.openzeppelin.com) 上的 Level 完成關卡總和＋時間排名(用Block Number排)
+監聽使用者在 [Crosslink Challenge](https://ctf.crosslink.taipei/) 上的 Level 完成關卡總和＋時間排名(用Block Number排)
 
 環境部署：
 1. node 11.0.0
